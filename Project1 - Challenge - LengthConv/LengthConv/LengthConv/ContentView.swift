@@ -20,8 +20,6 @@ struct ContentView: View {
         case MILES = "mi"
     }
     
-    
-    
     let supportedUnits = [LengthUnits.METERS, LengthUnits.KILOMETERS, LengthUnits.FEET, LengthUnits.YARDS, LengthUnits.MILES]
     
     var convertedValue: Double {
