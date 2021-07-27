@@ -14,7 +14,7 @@ print(a == anotherA)
 
 //x = makeOne()
 
-func makeOneOrA(_ isOne: Bool) -> some Equatable {
-    isOne ? 1 : "A"
-}
+//func makeOneOrA(_ isOne: Bool) -> some Equatable {
+//    isOne ? 1 : "A"
+//}
 

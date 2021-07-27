@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+struct FlagImage: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .clipShape(Capsule())
+            .overlay(Capsule().stroke(Color.black, lineWidth: 1))
+            .shadow(color: Color.black, radius: 2)
+    }
+}
+
+extension View {
+    func flagImage() -> some View {
+        self.modifier(FlagImage())
+    }
+}
+
 struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
@@ -34,9 +49,7 @@ struct ContentView: View {
                     }) {
                         Image(self.countries[number])
                             .renderingMode(.original)
-                            .clipShape(Capsule())
-                            .overlay(Capsule().stroke(Color.black, lineWidth: 1))
-                            .shadow(color: .black, radius: 2)
+                            .flagImage()
                     }
                 }
                 VStack {
