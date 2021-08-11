@@ -28,6 +28,8 @@ struct ContentView: View {
     @State private var userScore = 0
     @State private var scoreMessage = ""
     
+    @State private var animationAmount = 0.0
+    
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
     
@@ -45,12 +47,19 @@ struct ContentView: View {
                 }
                 ForEach(0..<3) { number in
                     Button(action: {
-                        self.flagTapped(number)
+                        withAnimation(.interpolatingSpring(stiffness: 2, damping: 1)) {
+                            self.flagTapped(number)
+                            if number == correctAnswer {
+                                self.animationAmount += 360
+                            }
+                        }
                     }) {
                         Image(self.countries[number])
                             .renderingMode(.original)
                             .flagImage()
                     }
+                    .rotation3DEffect(.degrees((number == correctAnswer) ? animationAmount : 0.0), axis: (x: 0, y: 1, z: 0))
+                    .opacity((showingScore && number != correctAnswer) ? 0.25 : 1.0)
                 }
                 VStack {
                     Text("Your current score is : \(userScore)")
@@ -85,6 +94,7 @@ struct ContentView: View {
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        animationAmount = 0.0
     }
 }
 
